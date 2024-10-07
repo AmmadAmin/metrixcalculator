@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrix Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input {
+      width: 50px;
+      text-align: center;
+    }
+    table {
+      margin: 20px 0;
+    }
+    .matrix {
+      display: inline-block;
+      margin-right: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Matrix Calculator</h1>
+  <h3>Enter values for 2x2 matrices:</h3>
+
+  <div class="matrix">
+    <h4>Matrix A</h4>
+    <table>
+      <tr>
+        <td><input type="number" id="a00" value="0"></td>
+        <td><input type="number" id="a01" value="0"></td>
+      </tr>
+      <tr>
+        <td><input type="number" id="a10" value="0"></td>
+        <td><input type="number" id="a11" value="0"></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="matrix">
+    <h4>Matrix B</h4>
+    <table>
+      <tr>
+        <td><input type="number" id="b00" value="0"></td>
+        <td><input type="number" id="b01" value="0"></td>
+      </tr>
+      <tr>
+        <td><input type="number" id="b10" value="0"></td>
+        <td><input type="number" id="b11" value="0"></td>
+      </tr>
+    </table>
+  </div>
+
+  <button onclick="calculate('add')">Add</button>
+  <button onclick="calculate('subtract')">Subtract</button>
+  <button onclick="calculate('multiply')">Multiply</button>
+  <button onclick="calculate('divide')">divide</button>
+
+  <h3>Result:</h3>
+  <table id="result">
+    <tr>
+      <td><input type="number" id="r00" readonly></td>
+      <td><input type="number" id="r01" readonly></td>
+    </tr>
+    <tr>
+      <td><input type="number" id="r10" readonly></td>
+      <td><input type="number" id="r11" readonly></td>
+    </tr>
+  </table>
+
+  <script>
+    function calculate(operation) {
+      let a = [
+        [parseFloat(document.getElementById('a00').value), parseFloat(document.getElementById('a01').value)],
+        [parseFloat(document.getElementById('a10').value), parseFloat(document.getElementById('a11').value)]
+      ];
+
+      let b = [
+        [parseFloat(document.getElementById('b00').value), parseFloat(document.getElementById('b01').value)],
+        [parseFloat(document.getElementById('b10').value), parseFloat(document.getElementById('b11').value)]
+      ];
+
+      let result = [[0, 0], [0, 0]];
+
+      switch (operation) {
+        case 'add':
+          result = addMatrices(a, b);
+          break;
+        case 'subtract':
+          result = subtractMatrices(a, b);
+          break;
+        case 'multiply':
+          result = multiplyMatrices(a, b);
+          break;
+
+          break;
+        case 'divide':
+          result = divideMatrices(a, b);
+          break;
+      }
+
+      document.getElementById('r00').value = result[0][0];
+      document.getElementById('r01').value = result[0][1];
+      document.getElementById('r10').value = result[1][0];
+      document.getElementById('r11').value = result[1][1];
+    }
+
+    function addMatrices(a, b) {
+      return [
+        [a[0][0] + b[0][0], a[0][1] + b[0][1]],
+        [a[1][0] + b[1][0], a[1][1] + b[1][1]]
+      ];
+    }
+
+    function subtractMatrices(a, b) {
+      return [
+        [a[0][0] - b[0][0], a[0][1] - b[0][1]],
+        [a[1][0] - b[1][0], a[1][1] - b[1][1]]
+      ];
+    }
+
+    function divideMatrices(a, b) {
+      return [
+        [a[0][0] / b[0][0], a[0][1] / b[0][1]],
+        [a[1][0] / b[1][0], a[1][1] / b[1][1]]
+      ];
+    }
+
+    function multiplyMatrices(a, b) {
+      return [
+        [
+          a[0][0] * b[0][0] + a[0][1] * b[1][0],
+          a[0][0] * b[0][1] + a[0][1] * b[1][1]
+        ],
+        [
+          a[1][0] * b[0][0] + a[1][1] * b[1][0],
+          a[1][0] * b[0][1] + a[1][1] * b[1][1]
+        ]
+      ];
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
